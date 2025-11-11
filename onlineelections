@@ -1,1 +1,258 @@
+#include <stdio.h>
+
+
+void registration(char name[100], int *n, int cnic[], int *age, int *flag, int *cn)
+{
+    printf("Input your name please: ");
+    scanf("%s", name);
+
+    printf("Input your CNIC number without dashes: ");
+    scanf("%d", cn);
+
+    *flag = 0;
+
+
+    for (int i = 0; i < *n; i++)
+    {
+        if (*cn == cnic[i])
+        {
+            printf("Repeated CNIC — your vote has already been casted.\n");
+            *flag = 1;
+            break;
+        }
+    }
+
+    if (*flag == 0)
+    {
+        cnic[*n] = *cn;  
+        printf("Input your age: ");
+        scanf("%d", age);
+
+        if (*age < 18)
+        {
+            printf("You are underage — cannot vote.\n");
+        }
+        else
+        {
+            printf("Registration successful.\n");
+        }
+
+        (*n)++;  
+    }
+}
+
+#include <stdio.h>
+
+#define CANDIDATES 4
+#define PROVINCES 1
+
+int voting(
+    char name[100],
+    int n,
+    int cnic[],
+    int age,
+    int *flag,
+    int province,
+    int candidate,
+    char ch,
+    int sindh[PROVINCES][CANDIDATES],
+    int punjab[PROVINCES][CANDIDATES],
+    int balochistan[PROVINCES][CANDIDATES],
+    int kpk[PROVINCES][CANDIDATES]
+)
+{
+    if (age < 18)
+    {
+        *flag = 1;
+        printf(" Your age is less than 18! Better luck next time.\n");
+        return 0;
+    }
+
+    printf("\nEnter the serial number for your province:\n");
+    printf("1: Sindh\n2: Punjab\n3: Balochistan\n4: KPK\n");
+    scanf("%d", &province);
+
+    switch (province)
+    {
+    case 1:
+        printf("\nSelect your candidate:\n");
+        printf("1: Ali\n2: Mohammad\n3: Farooq\n4: Zaid\n");
+        scanf("%d", &candidate);
+
+        switch (candidate)
+        {
+        case 1:
+            printf("Are you sure you want to vote for Ali (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') sindh[0][0]++;
+            else *flag = 2;
+            break;
+        case 2:
+            printf("Are you sure you want to vote for Mohammad (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') sindh[0][1]++;
+            else *flag = 2;
+            break;
+        case 3:
+            printf("Are you sure you want to vote for Farooq (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') sindh[0][2]++;
+            else *flag = 2;
+            break;
+        case 4:
+            printf("Are you sure you want to vote for Zaid (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') sindh[0][3]++;
+            else *flag = 2;
+            break;
+        default:
+            printf("Invalid candidate selection.\n");
+            break;
+        }
+        break;
+
+    // -------------------- Punjab --------------------
+    case 2:
+        printf("\nSelect your candidate:\n");
+        printf("1: Fahad\n2: Usman\n3: Rayyan\n4: Tamim\n");
+        scanf("%d", &candidate);
+
+        switch (candidate)
+        {
+        case 1:
+            printf("Vote for Fahad (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') punjab[0][0]++;
+            else *flag = 2;
+            break;
+        case 2:
+            printf("Vote for Usman (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') punjab[0][1]++;
+            else *flag = 2;
+            break;
+        case 3:
+            printf("Vote for Rayyan (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') punjab[0][2]++;
+            else *flag = 2;
+            break;
+        case 4:
+            printf("Vote for Tamim (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') punjab[0][3]++;
+            else *flag = 2;
+            break;
+        default:
+            printf("Invalid candidate selection.\n");
+            break;
+        }
+        break;
+
+    // -------------------- Balochistan --------------------
+    case 3:
+        printf("\nSelect your candidate:\n");
+        printf("1: John\n2: Will\n3: Imran\n4: Kamran\n");
+        scanf("%d", &candidate);
+
+        switch (candidate)
+        {
+        case 1:
+            printf("Vote for John (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') balochistan[0][0]++;
+            else *flag = 2;
+            break;
+        case 2:
+            printf("Vote for Will (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') balochistan[0][1]++;
+            else *flag = 2;
+            break;
+        case 3:
+            printf("Vote for Imran (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') balochistan[0][2]++;
+            else *flag = 2;
+            break;
+        case 4:
+            printf("Vote for Kamran (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') balochistan[0][3]++;
+            else *flag = 2;
+            break;
+        default:
+            printf("Invalid candidate selection.\n");
+            break;
+        }
+        break;
+
+    // -------------------- KPK --------------------
+    case 4:
+        printf("\nSelect your candidate:\n");
+        printf("1: Saad\n2: Tariq\n3: Rehan\n4: Naveed\n");
+        scanf("%d", &candidate);
+
+        switch (candidate)
+        {
+        case 1:
+            printf("Vote for Saad (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') kpk[0][0]++;
+            else *flag = 2;
+            break;
+        case 2:
+            printf("Vote for Tariq (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') kpk[0][1]++;
+            else *flag = 2;
+            break;
+        case 3:
+            printf("Vote for Rehan (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') kpk[0][2]++;
+            else *flag = 2;
+            break;
+        case 4:
+            printf("Vote for Naveed (y/n)? ");
+            scanf(" %c", &ch);
+            if (ch == 'y' || ch == 'Y') kpk[0][3]++;
+            else *flag = 2;
+            break;
+        default:
+            printf("Invalid candidate selection.\n");
+            break;
+        }
+        break;
+
+    default:
+        printf("Invalid province selection.\n");
+        break;
+    }
+
+    return 0;
+}
+
+int main()
+{
+    char name[100];
+    int cnic[100];
+    int age, flag = 0, province, candidate;
+    char ch;
+
+    int sindh[PROVINCES][CANDIDATES] = {0};
+    int punjab[PROVINCES][CANDIDATES] = {0};
+    int balochistan[PROVINCES][CANDIDATES] = {0};
+    int kpk[PROVINCES][CANDIDATES] = {0};
+
+    printf("Enter your name: ");
+    scanf("%s", name);
+    printf("Enter your age: ");
+    scanf("%d", &age);
+
+    voting(name, 0, cnic, age, &flag, province, candidate, ch,
+           sindh, punjab, balochistan, kpk);
+
+    return 0;
+}
 
