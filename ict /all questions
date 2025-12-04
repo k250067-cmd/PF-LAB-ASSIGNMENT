@@ -1,0 +1,175 @@
+#include <iostream>
+#include <string>
+#include <cmath>
+using namespace std;
+
+class BankAccount {
+public:
+    string name;
+    double balance;
+    BankAccount(string n, double b) {
+        name = n;
+        balance = b;
+        cout << "Account created for " << name << endl;
+    }
+};
+
+class Student {
+private:
+    int id;
+    string name;
+    int grade;
+public:
+    Student(int i, string n, int g) {
+        id = i; name = n; grade = g;
+    }
+    void display() {
+        cout << "ID: " << id << ", Name: " << name << ", Grade: " << grade << endl;
+    }
+};
+
+class Animal {
+public:
+    string name;
+    Animal(string n) { name = n; }
+    void makeSound() { cout << name << " makes a sound" << endl; }
+};
+
+class Dog : public Animal {
+public:
+    Dog(string n) : Animal(n) {}
+    void bark() { cout << name << " barks: Woof Woof!" << endl; }
+};
+
+class Vehicle {
+public:
+    string brand;
+    int speed;
+    Vehicle(string b, int s) { brand = b; speed = s; }
+};
+
+class Car : public Vehicle {
+public:
+    int numberOfDoors;
+    Car(string b, int s, int d) : Vehicle(b, s) { numberOfDoors = d; }
+    void display() {
+        cout << "Brand: " << brand << ", Speed: " << speed
+             << ", Doors: " << numberOfDoors << endl;
+    }
+};
+
+class Employee {
+protected:
+    int employeeID;
+    double salary;
+public:
+    Employee(int id, double s) { employeeID = id; salary = s; }
+};
+
+class PartTimeEmployee : protected Employee {
+public:
+    PartTimeEmployee(int id, double s) : Employee(id, s) {}
+    double calculateSalary(int hoursWorked) {
+        return (salary / 160) * hoursWorked;
+    }
+};
+
+class Product {
+protected:
+    string brand;
+    double price;
+public:
+    Product(string b, double p) { brand = b; price = p; }
+};
+
+class DiscountedProduct : protected Product {
+public:
+    DiscountedProduct(string b, double p) : Product(b, p) {}
+    void applyDiscount(double percent) {
+        price = price - (price * percent / 100);
+        cout << "Brand: " << brand << ", Discounted Price: " << price << endl;
+    }
+};
+
+class Printer {
+public:
+    void printInfo(string name) { cout << "Name: " << name << endl; }
+    void printInfo(string name, int age) { cout << "Name: " << name << ", Age: " << age << endl; }
+    void printInfo(string name, int age, string city) { 
+        cout << "Name: " << name << ", Age: " << age << ", City: " << city << endl; 
+    }
+};
+
+class Area {
+public:
+    double area(double side) { return side * side; }
+    double area(double length, double width) { return length * width; }
+    double area(double radius, bool circle) { return M_PI * radius * radius; }
+};
+
+class Payment {
+public:
+    virtual void processPayment() { cout << "Processing general payment..." << endl; }
+};
+
+class CreditCardPayment : public Payment {
+public:
+    void processPayment() override { cout << "Processing credit card payment..." << endl; }
+};
+
+class CashPayment : public Payment {
+public:
+    void processPayment() override { cout << "Processing cash payment..." << endl; }
+};
+
+class UPIPayment : public Payment {
+public:
+    void processPayment() override { cout << "Processing UPI payment..." << endl; }
+};
+
+int main() {
+    cout << "\n--- Task 1 ---\n";
+    BankAccount acc("Alice", 5000);
+
+    cout << "\n--- Task 2 ---\n";
+    Student s1(101, "Bob", 10);
+    s1.display();
+
+    cout << "\n--- Task 3 ---\n";
+    Animal a("GenericAnimal"); a.makeSound();
+    Dog d("Buddy"); d.makeSound(); d.bark();
+
+    cout << "\n--- Task 4 ---\n";
+    Car c("Toyota", 120, 4); c.display();
+
+    cout << "\n--- Task 5 ---\n";
+    PartTimeEmployee pt(201, 4000);
+    cout << "Part-time salary for 80 hours: " << pt.calculateSalary(80) << endl;
+
+    cout << "\n--- Task 6 ---\n";
+    DiscountedProduct dp("Nike", 100);
+    dp.applyDiscount(20);
+
+    cout << "\n--- Task 7 ---\n";
+    Printer p;
+    p.printInfo("Alice");
+    p.printInfo("Bob", 25);
+    p.printInfo("Charlie", 30, "New York");
+
+    cout << "\n--- Task 8 ---\n";
+    Area ar;
+    cout << "Square area: " << ar.area(5) << endl;
+    cout << "Rectangle area: " << ar.area(4,6) << endl;
+    cout << "Circle area: " << ar.area(3,true) << endl;
+
+    cout << "\n--- Task 9 ---\n";
+    Payment* pay1 = new CreditCardPayment();
+    Payment* pay2 = new CashPayment();
+    Payment* pay3 = new UPIPayment();
+    pay1->processPayment();
+    pay2->processPayment();
+    pay3->processPayment();
+    delete pay1; delete pay2; delete pay3;
+
+    return 0;
+}
